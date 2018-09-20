@@ -1,7 +1,13 @@
 <template>
 
-  <div>
-    <h1>home</h1>
+  <div class="row">
+    <div id="home" class="col-sm-12 text-center">
+      <div class="background">
+        <h1>欢迎使用此订餐系统</h1>
+        <h2>这里有你喜欢的食物</h2>
+      </div>
+    </div>
+    <!--<h1>home</h1>-->
     <!--<button @click="goToMenu" class="btn btn-success">Let's order!</button>-->
   </div>
 </template>
@@ -22,5 +28,17 @@
 </script>
 
 <style scoped>
-
+#home{
+  background: url("../assets/pizza.jpg");
+  height: 85vh;
+  padding: 10%;
+}
+h1,h2{margin: 6%}
+.background{
+    background-color: #eee;
+    opacity: 0.8;
+    max-width: 70VW;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
 </style>
