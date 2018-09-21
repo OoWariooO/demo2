@@ -49,7 +49,7 @@
             .then(
               res=>{
                 //console.log(res);
-              //this.$router.push('/login')
+              this.$router.push('/login')
           })
         }
         else{
