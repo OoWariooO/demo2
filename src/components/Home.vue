@@ -32,6 +32,7 @@
   background: url("../assets/pizza.jpg");
   height: 85vh;
   padding: 10%;
+  margin-bottom: 20px;
 }
 h1,h2{margin: 6%}
 .background{

@@ -40,16 +40,16 @@
             <tbody v-for="item in basket" :key="item.name">
             <tr>
               <td>
-                <button class="btn btn-sm" @click="decreaseQuatity()">-</button>
+                <button class="btn btn-sm" @click="decreaseQuatity(item)">-</button>
                 <span>{{item.quantity}}</span>
-                <button class="btn btn-sm">+</button>
+                <button class="btn btn-sm" @click="increaseQuatity(item)">+</button>
               </td>
               <td>{{item.name}}&nbsp;{{item.size}}寸</td>
-              <td>{{item.price}}</td>
+              <td>{{item.price*item.quantity}}</td>
             </tr>
             </tbody>
           </table>
-          <p>总价</p>
+          <p>总价：{{total+'RMB'}}</p>
           <button class="btn btn-success btn-block">提交</button>
         </div>
         <div v-else>{{basketText}}</div>
@@ -68,6 +68,7 @@
         return{
           basket:[],
           basketText:'购物车暂无商品',
+
           getMenuItems:{
             1: {
               'name': '榴莲pizza',
@@ -105,14 +106,54 @@
           }
         }
       },
+      computed:{
+        total(){
+          let totalCost = 0;
+          for(let index in this.basket){
+            let individualItem = this.basket[index];
+            totalCost += individualItem.quantity*individualItem.price;
+          }
+          return totalCost;
+        }
+      },
       methods:{
         addToBasket(item,option){
-          this.basket.push({
+          let basketitem = {
             name:item.name,
             size:option.size,
             price:option.price,
             quantity:1
-          })
+          }
+          if(this.basket.length>0){
+
+            //过滤
+            let res=this.basket.filter((basketitem)=>{
+
+              return basketitem.name === item.name && basketitem.price===option.price
+
+            });
+
+            if(res !=null && res.length>0){
+               res[0].quantity++;
+             }else {
+               this.basket.push(basketitem);
+            }
+          }else {
+            this.basket.push(basketitem);
+          }
+
+        },
+        decreaseQuatity(item){
+          item.quantity--;
+          if(item.quantity<=0){
+            this.removeFromBasket(item);
+          }
+        },
+        increaseQuatity(item){
+          item.quantity++;
+        },
+        removeFromBasket(item){
+          this.basket.splice(this.basket.indexOf(item),1);
         }
       }
     }
