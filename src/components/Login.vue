@@ -31,6 +31,12 @@
         password:''
       }
     },
+    //清除登录效果
+    beforeRouteEnter (to, from, next) {
+      next(
+        vm=>vm.$store.dispatch('setUser',null)
+      )
+    },
     methods:{
       onSubmit(){
           axios.get('/usertony.json')
@@ -48,11 +54,16 @@
                 return user.email ===this.email &&user.password === this.password
               })
               if(result.length>0&&result!=null){
+                this.$store.dispatch('setUser',result[0].email);
                 this.$router.push('/home');
               }
-              else(
-                alert('账号或密码错误')
-              )
+              else{
+
+                alert('账号或密码错误');
+                this.$store.dispatch('setUser',null);
+              
+              }
+                
               //console.log(result);
             })
       }

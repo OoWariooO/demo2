@@ -13,10 +13,10 @@
             <th>删除</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-for="item in getMenuItems" :key="item.name">
         <tr>
-          <td>榴莲Pizza</td>
-          <td><button class="btn btn-outline-danger btn-sm">X</button></td>
+          <td>{{item.name}}</td>
+          <td><button @click="deleteData(item)" class="btn btn-outline-danger btn-sm">X</button></td>
         </tr>
         </tbody>
       </table>
@@ -28,10 +28,56 @@
 <script>
   import NewPizza from './NewPizza'
     export default {
+    //调用方法
+      methods:{
+      deleteData(item){
+        fetch('https://wd7437060945arrkhb.wilddogio.com/menutony/'+item.id+'/.json',{
+          method:'delete',
+          headers:{
+            'Content-type':'application/json'
+          }
+        })
+          .then(res=>res.json())
+          .then(data=> 
+          {
+            this.$store.commit('removeItems',item)
+          })
+          .catch(error=>console.log(error))
+      }
+      },
+    //注册组件
     components:{
-
       'app-new-pizza':NewPizza
-    }
+    },
+    //
+    computed:{
+      getMenuItems:{
+        get(){
+           return this.$store.state.getMenuItems;
+        },
+        set(){}
+      }
+    },
+
+
+    //生命周期函数
+      created(){
+        fetch('https://wd2323984238ivjjvi.wilddogio.com/menutony.json')
+          .then(res=>{
+            return res.json();
+          })
+          .then(data=>{
+            //console.log(data);
+            let menuArray = [];
+            for (let key in data){
+              data[key].id = key;
+              menuArray.push(data[key])
+            }
+            //this.getMenuItems = menuArray;
+            //数据同步到Vuex中
+            this.$store.commit('setMenuItems',menuArray)
+          })
+      }
       //name: "Admin"
       // data(){
       //   return{

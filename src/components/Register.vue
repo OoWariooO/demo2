@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+ // import axios from 'axios'
   export default{
    data(){
      return{
@@ -45,7 +45,7 @@
             password:this.password,
             confirmPassword:this.confirmPassword
           }
-          axios.post('/usertony.json',formData)
+          this.$http.post('/usertony.json',formData)
             .then(
               res=>{
                 //console.log(res);

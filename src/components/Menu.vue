@@ -69,42 +69,59 @@
           basket:[],
           basketText:'购物车暂无商品',
 
-          getMenuItems:{
-            1: {
-              'name': '榴莲pizza',
-              'description': '这是喜欢吃榴莲朋友的最佳选择',
-              'options': [{
-                'size': 9,
-                'price': 38
-              }, {
-                'size': 12,
-                'price': 48
-              }]
-            },
-            2: {
-              'name': '芝士pizza',
-              'description': '芝士杀手,浓浓的芝士丝, 食欲瞬间爆棚',
-              'options': [{
-                'size': 9,
-                'price': 38
-              }, {
-                'size': 12,
-                'price': 48
-              }]
-            },
-            3: {
-              'name': '夏威夷pizza',
-              'description': '众多人的默认选择',
-              'options': [{
-                'size': 9,
-                'price': 36
-              }, {
-                'size': 12,
-                'price': 46
-              }]
-            }
-          }
+          //getMenuItems:{
+            // 1: {
+            //   'name': '榴莲pizza',
+            //   'description': '这是喜欢吃榴莲朋友的最佳选择',
+            //   'options': [{
+            //     'size': 9,
+            //     'price': 38
+            //   }, {
+            //     'size': 12,
+            //     'price': 48
+            //   }]
+            // },
+            // 2: {
+            //   'name': '芝士pizza',
+            //   'description': '芝士杀手,浓浓的芝士丝, 食欲瞬间爆棚',
+            //   'options': [{
+            //     'size': 9,
+            //     'price': 38
+            //   }, {
+            //     'size': 12,
+            //     'price': 48
+            //   }]
+            // },
+            // 3: {
+            //   'name': '夏威夷pizza',
+            //   'description': '众多人的默认选择',
+            //   'options': [{
+            //     'size': 9,
+            //     'price': 36
+            //   }, {
+            //     'size': 12,
+            //     'price': 46
+            //   }]
+            // }
+         // }
         }
+      },
+      created(){
+        // fetch('https://wd7437060945arrkhb.wilddogio.com/menutony.json')
+        //     .then(res=>{
+        //       return res.json();
+        //     })
+        //     .then(data=>{
+        //       //console.log(data);
+        //       let menuArray = [];
+        //       for (let key in data){
+        //         data[key].id = key;
+        //         menuArray.push(data[key])
+        //       }
+        //       this.getMenuItems = menuArray;
+        // })
+        this.$http.get('menutony.json')
+                    .then(res=>this.$store.commit('setMenuItems',res.data))
       },
       computed:{
         total(){
@@ -114,6 +131,10 @@
             totalCost += individualItem.quantity*individualItem.price;
           }
           return totalCost;
+        },
+        getMenuItems(){
+          //方法一
+          return this.$store.state.getMenuItems;
         }
       },
       methods:{

@@ -55,6 +55,7 @@
           scessText:''
         }
       },
+
       methods:{
         addMenuItem(){
           //console.log(this.newPizza);
@@ -72,17 +73,31 @@
           }]
           }
           //console.log(data);
-          fetch('https://wd7437060945arrkhb.wilddogio.com/menutony.json',{
-            method:'post',
-            headers:{
-              'Content-type':'application/json'
-            },
-            body:JSON.stringify(data)
-          })
-            .then(
-                    res=>console.log(res)
-                    //this.scessText = '创建成功'
-                )
+          // fetch('https://wd7437060945arrkhb.wilddogio.com/menutony.json',{
+          //   method:'post',
+          //   headers:{
+          //     'Content-type':'application/json'
+          //   },
+          //   body:JSON.stringify(data)
+          // })
+          //   .then(
+          //           res=>console.log(res)
+          //           //this.scessText = '创建成功'
+
+          //       )
+          //   .then(data=>{
+          //     this.$router.push('/menu')
+          //   })
+          // this.$http.post('menutony.json',data)
+          //           .then(ren=>this.$router.push('/menu'));
+          //数据同步vuex
+           // this.$http.post('menutony.json',data)
+          //           .then(ren=>this.$router.push('/menu'));
+           this.$http.post('menutony.json',data)
+                    .then(ren=>{
+                      this.$store.commit('pushToMenuItems',data)
+                    });
+
         }
       }
     }
