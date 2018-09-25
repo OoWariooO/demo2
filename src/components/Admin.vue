@@ -31,14 +31,14 @@
     //调用方法
       methods:{
       deleteData(item){
-        fetch('https://wd7437060945arrkhb.wilddogio.com/menutony/'+item.id+'/.json',{
+        fetch('https://wd2323984238ivjjvi.wilddogio.com/menutony/'+item.id+'/.json',{
           method:'delete',
           headers:{
             'Content-type':'application/json'
           }
         })
           .then(res=>res.json())
-          .then(data=> 
+          .then(data=>
           {
             this.$store.commit('removeItems',item)
           })

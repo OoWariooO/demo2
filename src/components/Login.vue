@@ -24,6 +24,8 @@
 
 <script>
   import axios from 'axios';
+  import {setCookie} from "../until/until";
+
   export default{
     data(){
       return{
@@ -56,14 +58,24 @@
               if(result.length>0&&result!=null){
                 this.$store.dispatch('setUser',result[0].email);
                 this.$router.push('/home');
+                //	将用户名存进cookie，第三个参数60为秒，意味着一分钟后cookie自动消失。一天为 86400 s
+                this.$cookie.setCookie( 'username' ,result[0].email,60);
+
+
+                //let expireDays = 1000 * 60 * 60 ;
+                //this.setCookie('session',res.errData.token,expireDays); //设置Session
+                //let exdate = new Date();
+               // exdate.setDate(exdate.getDate() + 1000 * 60 * 60 );
+                //document.cookie = 'uid' + "=" + result[0].email + ";expires=" + exdate.toGMTString();
+                //this.setCookie('u_uuid',result[0].email,expireDays); //设置用户编号
               }
               else{
 
                 alert('账号或密码错误');
                 this.$store.dispatch('setUser',null);
-              
+
               }
-                
+
               //console.log(result);
             })
       }

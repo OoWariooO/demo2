@@ -8,8 +8,12 @@ import  {store} from "./store/store.js";
 
 './store/store.js'
 import Vuex from 'vuex'
+//import {setCookie} from './until/until.js'
+import {setCookie,getCookie,delCookie} from "./until/until";
 
 Vue.use(VueRouter);
+
+Vue.prototype.$cookie = {setCookie,getCookie,delCookie};
 
 Axios.defaults.baseURL = 'https://wd2323984238ivjjvi.wilddogio.com/'
 Vue.prototype.$http = Axios
@@ -20,6 +24,19 @@ const router = new VueRouter({
    //console.log(savedPosition);
   }
 })
+//
+// router.beforeEach((to, from, next) => {
+//   if(to.path=='/admin'||to.path=='/menu'){
+//    // console.log(getCookie('username'));
+//     this.$store.dispatch('setUser',getCookie('username'));
+//     // if(getCookie('username')){
+//     //
+//     // }
+//   }else {
+//     next();
+//   }
+// })
+
 new Vue({
   el: '#app',
   router,
