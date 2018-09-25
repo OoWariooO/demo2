@@ -25,17 +25,22 @@ const router = new VueRouter({
   }
 })
 //
-// router.beforeEach((to, from, next) => {
-//   if(to.path=='/admin'||to.path=='/menu'){
-//    // console.log(getCookie('username'));
-//     this.$store.dispatch('setUser',getCookie('username'));
-//     // if(getCookie('username')){
-//     //
-//     // }
-//   }else {
-//     next();
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  if(to.path=='/admin'||to.path=='/menu'){
+    if(store.state.isLogin){
+      next();
+    }else (
+      next('/login')
+    )
+     //console.log(store.state.isLogin)
+    //this.store.dispatch('setUser',getCookie('username'));
+    // if(getCookie('username')){
+    //
+    // }
+  }else {
+    next();
+  }
+})
 
 new Vue({
   el: '#app',
